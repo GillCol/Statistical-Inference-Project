@@ -1,10 +1,3 @@
----
-title: "Statistical Inference Part 1"
-author: "Gill Collier"
-date: "06/11/2020"
-output: pdf_document
----
-
 # Gill Collier - 01 November 2020
 # Coursera: Statistical Inference - Course Project
 
@@ -25,38 +18,30 @@ output: pdf_document
 # theoretical variance of the distribution.
 # 3. Show that the distribution is approximately normal.
 # In point 3, focus on the difference between the distribution of a large 
-# collection of random exponentials and the distribution of a large collection # of averages of 40 exponentials.
+# collection of random exponentials and the distribution of a large collection 
+# of averages of 40 exponentials.
 
 # Libraries
-```{r}
 library(ggplot2)
-```
-
+ 
 # Set variables
-```{r}
 set.seed(123)
 lambda <- 0.2
 n <- 40
-```
 
 # Generate the sample means
-```{r}
 mns = NULL
 for (i in 1 : 1500) mns = c(mns, mean(rexp(n, lambda)))
 summary(mns)
-```
 
 # Calculate the mean of these means
-```{r}
 m_mns <- mean(mns)
-```
 
 # Calculate the theoretical mean
-```{r}
 t_mns <- lambda^-1
 t_mns
+
 abs(m_mns - t_mns)
-```
 
 # The central limit theorem states that the sampling distribution of a sample 
 # mean is approximately normal if the sample size is large enough, even if 
@@ -67,29 +52,21 @@ abs(m_mns - t_mns)
 # theoretical mean
 
 # Calculate the sample variance
-```{r}
 s_var <- var(mns)
 s_var
-```
 
 # Calculate the theoretical variance
-```{r}
 t_var <- (lambda * sqrt(n)) ^ -2
 t_var
-```
 
 # Compare the sample variance to the theoretical variance
-```{r}
 s_var - t_var
-```
 
 # This comparison shows there is only a small difference between the 
 # simulation variance and the theorectical variance
 
 # The distribution can be shown in a histogram. This shows the sample means 
 # from the simulation with an overlay of a normal distribution.
-```{r cars}
 hist(mns, prob = TRUE, col = "light blue", main = 
              "Histogram of Means from Simulation", xlab = "simulation mean", 
      breaks = 20)
-```

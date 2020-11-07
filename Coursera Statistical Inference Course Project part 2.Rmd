@@ -1,0 +1,64 @@
+---
+title: "Statistical Inference Part 2"
+author: "Gill Collier"
+date: "07/11/2020"
+output: pdf_document
+---
+
+# Gill Collier - 01 November 2020
+# Coursera: Statistical Inference - Course Project
+
+# Part 2: Basic Inferential Data Analysis
+# Now in the second portion of the project, we're going to analyze the 
+# ToothGrowth data in the R datasets package.
+
+# Libraries
+```{r}
+library(ggplot2)
+```
+
+# Load the ToothGrowth data and perform some basic exploratory data analyses
+```{r}
+data = ToothGrowth
+?"ToothGrowth"
+```
+
+# The ToothGrowth data shows the Effect of Vitamin C on Tooth Growth in Guinea Pigs
+# Description
+# The response is the length of odontoblasts (cells responsible for tooth 
+# growth) in 60 guinea pigs. Each animal received one of three dose levels of 
+# vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, orange 
+# juice or ascorbic acid (a form of vitamin C and coded as VC).
+
+```{r}
+str(ToothGrowth)
+head(ToothGrowth)
+```
+# Summarise the data
+```{r}
+summary(ToothGrowth)
+
+ggplot(data=ToothGrowth, aes(x=as.factor(dose), y=len, fill=supp)) +
+        geom_bar(stat="identity") +
+        facet_grid(. ~ supp) +
+        ggtitle("Tooth length by Vitamin C dosage for delivery methods") +
+        xlab("Vitamin C Dosage") +
+        ylab("Tooth length")
+```
+
+# Use confidence intervals and/or hypothesis tests to compare tooth growth 
+# by supp and dose.
+```{r}
+t.test(len ~ supp, data = ToothGrowth)
+t.test(len ~ supp, data = subset(ToothGrowth, dose == 0.5))
+t.test(len ~ supp, data = subset(ToothGrowth, dose == 1))
+t.test(len ~ supp, data = subset(ToothGrowth, dose == 2))
+```
+
+# State your conclusions and the assumptions needed for your conclusions.
+# Tooth Length does increase as the dosage is increase for both delivery methods
+
+# When the lower dosages are administered (0.5 and 1) the most effective
+# method seems to the OJ but this is not the case with the higher dosage
+# The t-test analysis shows that the delivery method has no real effect 
+# on tooth growth.
